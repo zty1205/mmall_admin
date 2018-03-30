@@ -1,0 +1,49 @@
+import Vue from 'vue'
+import Router from 'vue-router'
+
+const login = resolve => require(['../components/login.vue'], resolve)
+const home = resolve => require(['../components/home.vue'], resolve)
+
+Vue.use(Router)
+
+export default new Router({
+    mode: 'history',
+    routes: [
+      {
+        path: '/',
+        redirect: '/login'
+      },
+      {
+        path: '/login',
+        name: 'login',
+        component: login
+      },
+      {
+        path: '/home',
+        name: 'home',
+        component: home,
+        // children: [  //这里就是二级路由的配置
+        //     {
+        //       path: '/index',
+        //       name: 'index',
+        //       component: index
+        //     },
+        //     {
+        //       path: '/product',
+        //       name: 'product',
+        //       component: product
+        //     },
+        //     {
+        //       path: '/category',
+        //       name: 'category',
+        //       component: category
+        //     },
+        //     {
+        //       path: '/order',
+        //       name: 'order',
+        //       component: order
+        //     }
+        //   ]
+      },
+    ]
+  })

@@ -1,0 +1,7 @@
+export const FETCH_SIGNIN_USER = 'FETCH_SIGNIN_USER'
+export const SET_SIGNIN_USER = 'SET_SIGNIN_USER'
+export const SET_USER_OUT = 'SET_USER_OUT'
+export const SET_TOKEN = 'SET_TOKEN'
+export const SET_MESSAGE = 'SET_MESSAGE'
+export const SIGN_BY_USERNAME = 'SIGN_BY_USERNAME'
+export const FETCH_USER_INFO = 'FETCH_USER_INFO'
