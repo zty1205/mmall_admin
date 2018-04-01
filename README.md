@@ -4,7 +4,7 @@
 
 ## Build Setup
 
-后台地址：http://www.djcao.top/manage/user/login.do
+后台地址：http://www.djcao.top/manage/user/login.do 或使用 下载https://github.com/zty1205/mmall 本地 运行后台
 
 ``` bash
 # install dependencies
