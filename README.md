@@ -4,11 +4,13 @@
 
 ## Build Setup
 
+后台地址：http://www.djcao.top/manage/user/login.do
+
 ``` bash
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
+# serve with hot reload at localhost:8081
 npm run dev
 
 # build for production with minification
