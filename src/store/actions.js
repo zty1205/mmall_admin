@@ -1,5 +1,6 @@
 import * as types from './mutations-type'
-import { signByUsername , fetchSignUser } from '../api/user'
+import { signByUsername } from '../api/user'
+import { getProductList } from "../api/product";
 
 const actions = {
   // 用户登录
@@ -34,6 +35,24 @@ const actions = {
   //     commit('SET_SIGNIN_USER', data)
   //   })
   // }
+  [types.GET_PRODUCT_LIST]({ commit }, Page) {
+    let pageNum = Page.PageNum;
+    let pageSize = Page.PageSize;
+    return new Promise((resolve, reject) => {
+      getProductList(pageNum, pageSize).then((res) => {
+        const data = res.data
+        if (data.status === 0) {
+          commit('SET_PRODUCT_LIST', data)
+          resolve(data)
+        } else {
+          resolve(data)  // 拒绝了 将这份数据传回给login.vue 组件
+        }
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  }
+
 }
 
 export default actions

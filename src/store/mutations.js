@@ -5,7 +5,11 @@ const mutations = {
     [types.SET_SIGNIN_USER] (state, data) {
         state = data
         // console.log(state) 能输出来
-    }
+    },
+  [types.SET_PRODUCT_LIST] (state, data) {
+    state.list = data.list
+    // console.log(state) 能输出来
+  }
 }
 
 export default mutations

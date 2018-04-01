@@ -10,6 +10,7 @@ import 'iview/dist/styles/iview.css'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
+axios.defaults.withCredentials = true
 
 Vue.use(iview)
 

@@ -14,7 +14,7 @@ const store = new Vuex.Store({
         user: { // 对应请求返回的data
             id: '',
             username: '',
-            possword: '',
+            password: '',
             email: '',
             phone: '',
             question: '',
@@ -22,7 +22,8 @@ const store = new Vuex.Store({
             role: '',
             create_time: '',
             update_time: ''
-        }
+        },
+      list: []
     },
     actions,
     mutations,

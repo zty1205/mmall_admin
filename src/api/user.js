@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:8080/user/login.do'
+const baseUrl = 'http://localhost:8080/manage/user/login.do?'
 
 // 登录
 export const signByUsername = (username, password) => {
-    const url = baseUrl+'?username='+username+'&password='+password
+    const url = baseUrl+'username='+username+'&password='+password
     return axios.post(url)
 }
 
