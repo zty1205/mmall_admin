@@ -1,6 +1,17 @@
 <template>
     <div>
       <h1>这里是product界面</h1>
+      <!-- 商品查询 -->
+
+      <Input v-model="Search" placeholder="关键词..." style="width: 500px;margin-bottom: 10px;">
+        <Select v-model="searchChoice" slot="prepend" style="width: 150px">
+          <Option v-for="item in Choice" :value="item.value" :key="item.value">{{ item.label }}</Option>
+        </Select>
+        <Button type="primary" slot="append" icon="ios-search" @click="getSearch"></Button>
+      </Input>
+
+
+      <!-- 商品列表 -->
       <i-table height="350" :content="self" border :columns="columns_product" :data="list"></i-table>
       <Page :total="total" :current='PageNum' :page-size='PageSize' @on-change="changePage" size="small" show-elevator class="MyPage"></Page>
       <footer :style="{marginTop: '20px'}">
@@ -15,7 +26,7 @@
 </template>
 
 <script>
-  import { getProductList } from '../api/product'
+  import { getProductList, searchProductById, searchProductByName } from '../api/product'
     export default {
       data(){
         return{
@@ -24,6 +35,12 @@
           PageNum: 1,
           PageSize: 10,
           total: 0,
+          searchChoice: null,
+          Search: '',
+          Choice:[
+            {value: 'ById', label: '按商品ID寻找'},
+            {value: 'ByName', label: '按商品名寻找'}
+          ],
           columns_product:[
             {
               title: 'ID',
@@ -109,12 +126,38 @@
           }
         },
         changePage(index){
-          console.log(index) // iview 会将当前页码传递给你
+          // console.log(index) // iview 会将当前页码传递给你
           getProductList(index, this.PageSize).then((res)=>{
             this.list = res.data.list
             this.total = res.data.total
           })
-        }      
+        },
+        getSearch(){
+          let searchChoice = this.searchChoice
+          let Search = this.Search
+          let regPos = /^\+?[1-9][0-9]*$/g; // 正整数正则
+          if(searchChoice){
+            if(searchChoice === 'ById' && regPos.test(Search)){
+              console.log('id')
+              searchProductById(Search).then((res)=>{
+                this.list = res.data.list
+                this.total = res.data.total
+              })
+            }
+            else if(searchChoice === 'ByName'){
+              console.log('name')
+              searchProductByName(Search).then((res)=>{
+                this.list = res.data.list
+                this.total = res.data.total
+              })
+            }
+            else {
+              alert('输入不合法')
+            }
+          }else{
+            alert('请输入搜索方式')
+          }
+        }
       },
       mounted(){
         // const res = getProductList(this.PageNum, this.PageSize)
