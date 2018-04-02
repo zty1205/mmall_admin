@@ -43,7 +43,6 @@
 
             </DatePicker>
             <a>退出</a>
-            <a>退出</a>
             <span>欢迎, uesr </span>
           </Header>
           <Content :style="{margin: '20px',background: '#fff', minHeight: '220px'}">

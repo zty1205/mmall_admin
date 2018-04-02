@@ -41,7 +41,7 @@ export const searchProductById = (productId) => {
 }
 
 export const searchProductByName = (productName) => {
-  let url = detailUrl+'productName='+productName
+  let url = searchUrl+'productName='+productName
   return new Promise((resolve, reject)=>{
     axios.get(url).then((res)=>{
       let data = res.data
@@ -58,7 +58,7 @@ export const searchProductByName = (productName) => {
 }
 
 export const getDetail = (productId) => {
-  let url = serachUrl+'productId='+productId
+  let url = detailUrl+'productId='+productId
   return new Promise((resolve, reject)=>{
     axios.get(url).then((res)=>{
       let data = res.data

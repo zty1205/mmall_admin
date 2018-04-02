@@ -20,9 +20,9 @@
             </Form>
         </Col>
         <canvas id="canvas" class="canvas"></canvas>
-    </Row> 
+    </Row>
 </div>
-    
+
 </template>
 
 <script>
@@ -51,13 +51,13 @@ export default {
 				username: this.formInfo.username,
 				password: this.formInfo.password
 			}
-			
+
 			this.$store.dispatch('SIGN_BY_USERNAME', formInfo).then((data) => {
-				//接收到了 axios返回的数据 
+				//接收到了 axios返回的数据
 
 				// console.log('login.vue: data:'+data)
 				// this.$router.push({path: '/home'})
-				
+
 				// console.log(data.status === 0)
 				if(data.status === 0){
 					this.$Message.success('登录成功')
@@ -67,14 +67,14 @@ export default {
 					this.$store.state.msg = '用户登录失败'
 					this.$Message.error('用户登录失败,请重新登录')
 				}
-				
+
 			}).catch(err => {
 				this.$store.state.msg = '用户登录失败'
 				this.$Message.error('用户登录失败,请重新登录')
 
 			})
 
-			// console.log(this.$store.state.msg) actions 是异步方法 这时候得不到 
+			// console.log(this.$store.state.msg) actions 是异步方法 这时候得不到
 
             // this.$refs[name].validate((valid) => {
             //     if (valid) {
@@ -90,7 +90,7 @@ export default {
 			// 	const res = response.data
 			// 	console.log(res)
 			// 	if(res){
-					
+
 			// 	}
 			// })
 			// .catch(error =>{
@@ -211,9 +211,9 @@ export default {
 			moveDots();
 			connectDots();
 			drawDots();
-			requestAnimationFrame(animateDots);	
+			requestAnimationFrame(animateDots);
 		}
-		
+
 		//----------------------跟着鼠标动--------------------
 		document.getElementById('container').addEventListener('mousemove', function(e){
 			mousePosition.x = e.pageX;
@@ -223,11 +223,11 @@ export default {
 			mousePosition.x = canvas.width / 2;
 			mousePosition.y = canvas.height / 2;
 		});
-			
-		
+
+
 		//----------------------跟着鼠标动--------------------
-		// createDots();
-		// requestAnimationFrame(animateDots);
+		createDots();
+		requestAnimationFrame(animateDots);
 	},
 }
 </script>

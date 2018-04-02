@@ -12,7 +12,7 @@
 
 
       <!-- 商品列表 -->
-      <i-table height="350" :content="self" border :columns="columns_product" :data="list"></i-table>
+      <i-table height="350" :content="self" border :columns="columns_product" :data="list" ref="productTable"></i-table>
       <Page :total="total" :current='PageNum' :page-size='PageSize' @on-change="changePage" size="small" show-elevator class="MyPage"></Page>
       <footer :style="{marginTop: '20px'}">
         <i-button type="primary" size="large" @click="exportData(1)">
@@ -22,16 +22,20 @@
           <Icon type="ios-download-outline"></Icon> 导出排序和过滤后的数据
         </i-button>
       </footer>
+
+      <product_detail v-show="showDetail" :list="detailList"></product_detail>
     </div>
 </template>
 
 <script>
-  import { getProductList, searchProductById, searchProductByName } from '../api/product'
+  import { getProductList, searchProductById, searchProductByName, getDetail } from '../api/product'
+  import product_detail from './product-detail.vue'
     export default {
       data(){
         return{
           self: this,
           list: [],
+          detailList: [],
           PageNum: 1,
           PageSize: 10,
           total: 0,
@@ -41,6 +45,7 @@
             {value: 'ById', label: '按商品ID寻找'},
             {value: 'ByName', label: '按商品名寻找'}
           ],
+          showDetail: false,
           columns_product:[
             {
               title: 'ID',
@@ -96,12 +101,41 @@
             {
               title: '操作',
               key: 'action',
-              render () {
-                return `<i-button type="text" size="small">查看</i-button><i-button type="text" size="small">编辑</i-button>`;
+              render: (h, params) => {
+                return h('div', [
+                  h('Button', {
+                    props: {
+                      type: 'info',
+                      size: 'small'
+                    },
+                    style: {
+                      marginRight: '5px'
+                    },
+                    on: {
+                      click: () => {
+                        this.detail(params.index)
+                      }
+                    }
+                  }, '查看'),
+                  h('Button', {
+                    props: {
+                      type: 'primary',
+                      size: 'small'
+                    },
+                    on: {
+                      click: () => {
+                        this.edit(params.index)
+                      }
+                    }
+                  }, '编辑')
+                ]);
               }
             }
           ]
         }
+      },
+      components:{
+        product_detail  // 子组件 需要将获取的detail信息传递给子组件
       },
       watch: {
         list:{
@@ -110,16 +144,21 @@
             // console.log('old: ',oldVal)
             this.list = newVal
           }
+        },
+        detailList:{
+          handler(newVal, oldVal){
+            this.detailList = newVal
+          }
         }
       },
       methods: {
         exportData (type) {
           if (type === 1) {
-            this.$refs.table.exportCsv({
+            this.$refs.productTable.exportCsv({
               filename: '原始数据'
             });
           } else if (type === 2) {
-            this.$refs.table.exportCsv({
+            this.$refs.productTable.exportCsv({
               filename: '排序和过滤后的数据',
               original: false
             });
@@ -157,6 +196,18 @@
           }else{
             alert('请输入搜索方式')
           }
+        },
+        detail(index){
+          // console.log('in datail and index = ',index)
+          // console.log(this.list[index].id) // 可以获得你点击的正确的id
+          let id = this.list[index].id
+          getDetail(id).then((res)=>{
+            this.detailList = res.data
+          })
+          this.showDetail = true
+        },
+        edit(index){
+          console.log('in edit and index = ', index)
         }
       },
       mounted(){
