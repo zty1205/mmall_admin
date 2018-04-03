@@ -32,28 +32,25 @@
 </template>
 
 <script>
+  import { getDetail } from '../api/product'
     export default {
       name: 'product-detail',
-      props:['list'], // 获得从父组件传过来的信息 让后渲染在页面上
+      props:['id'], // 获得从父组件传过来的信息 让后渲染在页面上
       data(){
         return{
           isEdit: false,
           detailList: {},
           // name: '',
           // subtitle: ''
-          isShow: true
+          isShow: false
         }
       },
       watch:{
-        list: {
-          handler(newVal,oldVal){
-            this.list = newVal
-          }
-        },
         detailList: {
           handler(newVal,oldVal){
             this.detailList = newVal;
-          }
+          },
+          deep: true
         }
       },
       mounted(){
@@ -63,11 +60,18 @@
         initList(){
           // this.name = this.list.name;
           // this.subtitle = this.list.subtitle;
-          this.detailList = this.list;
+          let id = this.id
+          getDetail(id).then((res)=>{
+            let list = res.data
+            this.detailList = list
+          })
+          this.isShow = true
         },
         SureEdit(){
           console.log('in sure')
           // this.isShow = false
+          this.detailList = {}
+          this.$emit('unShow')
         },
         Cancel(){
           console.log('in cancel')

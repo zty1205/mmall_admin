@@ -22,20 +22,20 @@
           <Icon type="ios-download-outline"></Icon> 导出排序和过滤后的数据
         </i-button>
       </footer>
-
-      <product_detail v-show="showDetail" :list="detailList" @unShow ="showDetail = false"></product_detail>
+<!-- 使用v-show的话 组件没显示的时候也会发送axios请求 -->
+      <product_detail v-if="showDetail" :id="nowId" @unShow ="showDetail = false"></product_detail>
     </div>
 </template>
 
 <script>
-  import { getProductList, searchProductById, searchProductByName, getDetail } from '../api/product'
+  import { getProductList, searchProductById, searchProductByName } from '../api/product'
   import product_detail from './product-detail.vue'
     export default {
       data(){
         return{
           self: this,
           list: [],
-          detailList: [],
+          nowId: 0,
           PageNum: 1,
           PageSize: 10,
           total: 0,
@@ -145,9 +145,9 @@
             this.list = newVal
           }
         },
-        detailList:{
+        nowId:{
           handler(newVal, oldVal){
-            this.detailList = newVal
+            this.nowId = newVal
           }
         }
       },
@@ -201,16 +201,14 @@
           // console.log('in datail and index = ',index)
           // console.log(this.list[index].id) // 可以获得你点击的正确的id
           let id = this.list[index].id
-          getDetail(id).then((res)=>{
-            this.detailList = res.data
-          })
+          // this.nowId = id // 不能实时更新
+          this.nowId =id
           this.showDetail = true
+          console.log(this.showDetail)
         },
-        edit(index){
-          console.log('in edit and index = ', index)
-        }
+
       },
-      mounted(){
+      created(){
         // const res = getProductList(this.PageNum, this.PageSize)
         getProductList(this.PageNum, this.PageSize).then((data)=>{
           // console.log(data) // 第一个data 是返回的response  第二个是返回json格式里的data
