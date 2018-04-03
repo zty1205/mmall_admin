@@ -87,6 +87,7 @@
     position: relative;
     border-radius: 4px;
     overflow: hidden;
+    height: 100%;
   }
   .layout-header-bar{
     background: #fff;

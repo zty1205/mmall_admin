@@ -23,7 +23,7 @@
         </i-button>
       </footer>
 
-      <product_detail v-show="showDetail" :list="detailList"></product_detail>
+      <product_detail v-show="showDetail" :list="detailList" @unShow ="showDetail = false"></product_detail>
     </div>
 </template>
 
