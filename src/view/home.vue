@@ -1,32 +1,38 @@
 <template>
     <div class="layout">
-      <Layout>
+      <Layout :style="{height: '700px'}">
         <Sider breakpoint="md" collapsible :collapsed-width="78" v-model="isCollapsed">
           <span class="logo"> MMall </span>
           <Menu active-name="1" theme="dark" width="auto" :class="menuitemClasses">
             <MenuItem name="1">
-              <Icon type="ios-home" size='20' :style="{marginLeft: '-20px'}"></Icon>
+              <Icon type="ios-home" size='24' :style="{marginLeft: '-20px'}"></Icon>
               <router-link to="/home/index"> 首页 </router-link>
             </MenuItem>
             <Submenu name="2">
               <template slot="title">
-                <Icon type="ios-keypad" size='20'></Icon>
-                商品
+                <Icon type="ios-keypad" size='24'></Icon>
+                <span>商品</span>
               </template>
               <MenuItem name="2-1">
-                <router-link to="/home/product"> 商品管理 </router-link>
+                <router-link to="/home/product">
+                  <span>商品管理 </span>
+                </router-link>
               </MenuItem>
               <MenuItem name="2-2">
-                <router-link to="/home/category"> 品类管理 </router-link>
+                <router-link to="/home/category"> 品类管理
+                  <span>品类管理 </span>
+                </router-link>
               </MenuItem>
             </Submenu>
             <Submenu name="3">
               <template slot="title">
-                <Icon type="ios-paper" size='20'></Icon>
-                订单
+                <Icon type="ios-paper" size='24'></Icon>
+                  <span>订单 </span>
               </template>
               <MenuItem name="3-1">
-                <router-link to="/home/order"> 订单管理 </router-link>
+                <router-link to="/home/order">
+                  <span>订单管理 </span>
+                </router-link>
               </MenuItem>
             </Submenu>
           </Menu>
@@ -86,8 +92,6 @@
     background: #f5f7f9;
     position: relative;
     border-radius: 4px;
-    overflow: hidden;
-    height: 100%;
   }
   .layout-header-bar{
     background: #fff;
