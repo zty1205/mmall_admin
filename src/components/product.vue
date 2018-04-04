@@ -22,7 +22,7 @@
           <Icon type="ios-download-outline"></Icon> 导出排序和过滤后的数据
         </i-button>
       </footer>
-<!-- 使用v-show的话 组件没显示的时候也会发送axios请求 -->
+<!-- 使用v-show的话 组件没显示的时候也会发送axios请求 v-show只是简单地切换元素的 CSS 属性 display -->
       <product_detail v-if="showDetail" :id="nowId" @unShow ="showDetail = false"></product_detail>
     </div>
 </template>
@@ -210,10 +210,12 @@
       },
       created(){
         // const res = getProductList(this.PageNum, this.PageSize)
-        getProductList(this.PageNum, this.PageSize).then((data)=>{
-          // console.log(data) // 第一个data 是返回的response  第二个是返回json格式里的data
-          this.list = data.data.list
-          this.total = data.data.total
+        getProductList(this.PageNum, this.PageSize).then((res)=>{
+          // console.log(data) // res是返回的response  第二个是返回json格式里的data
+          let data = res.data
+          console.log(data)
+          this.list = data.list
+          this.total = data.total
         })
         //console.log(res) // res 直接返回的是Promise  可到api那里进行promise封装
         //this.list = res.list

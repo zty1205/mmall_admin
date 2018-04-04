@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-const login = resolve => require(['../components/login.vue'], resolve)
-const home = resolve => require(['../components/home.vue'], resolve)
+const login = resolve => require(['../view/login.vue'], resolve)
+const home = resolve => require(['../view/home.vue'], resolve)
 const index = resolve => require(['../components/index.vue'], resolve)
 const product = resolve => require(['../components/product.vue'], resolve)
 const category = resolve => require(['../components/category.vue'], resolve)
