@@ -66,6 +66,7 @@ export const getDetail = (productId) => {
         resolve(data)
       }else{
         alert('权限不够')
+        // resolve(data.status) 接受后应跳转路由到登录界面
       }
     }).catch((err)=>{
       alert('访问出错')

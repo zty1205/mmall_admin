@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import axios from 'axios'
 import store from './store/store'
-import router from './router/index'
+import { router } from './router/index'
 import iview from 'iview'
 import 'iview/dist/styles/iview.css'
 

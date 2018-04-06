@@ -2,8 +2,8 @@
     <div>
       <h1>这里是order界面</h1>
       <!-- 订单列表 -->
-      <i-table height="350" :content="self" border :columns="columns_order" :data="list" ref="orderTable" :row-class-name="rowClassName"></i-table>
-      <Page :total="total" :current='PageNum' :page-size='PageSize' @on-change="changePage" size="small" show-elevator class="MyPage"></Page>
+      <i-table height="350" :loading="loading" :content="self" border :columns="columns_order" :data="list" ref="orderTable"></i-table>
+      <Page :total="total" :current='PageNum' :page-size='PageSize' @on-change="changePage" show-elevator class="MyPage"></Page>
 
       <footer :style="{marginTop: '20px'}">
         <i-button type="primary" size="large" @click="exportData(1)">
@@ -23,6 +23,7 @@
         return{
           self: this,
           list: [],
+          loading: true,
           PageNum: 1,
           PageSize: 10,
           total: 300, // 后台api 没有给总共多少条订单
@@ -44,8 +45,7 @@
             {
               title: '订单状态',
               key: 'statusDesc',
-              width: 100,
-              className: 'demo-table-info-column'
+              width: 100
             },
             {
               title: '总价',
@@ -59,10 +59,11 @@
           ]
         }
       },
-      created(){
+      mounted(){
         getOrderList(this.PageNum, this.PageSize).then((res)=>{
           let data = res.data
           this.list = data
+          this.loading = false
         })
       },
       watch: {
@@ -87,34 +88,20 @@
         },
         changePage(index){
           // console.log(index) // iview 会将当前页码传递给你
+          this.loading = true
           getOrderList(index, this.PageSize).then((res)=>{
-            this.list = res.data.list
-            this.total = res.data.total
+            let data = res.data
+            this.list = data // 返回是data 而不包含在list里了
+            // this.total = data.total
+            this.loading = false
           })
-        },
-        rowClassName (row, index) {
-          if (index === 1) {
-            return 'demo-table-info-row';
-          } else if (index === 3) {
-            return 'demo-table-error-row';
-          }
-          return '';
         }
       }
     }
 </script>
 
 <style scoped>
-  .ivu-table .demo-table-info-row td{
-    background-color: #2db7f5;
-    color: #fff;
-  }
-  .ivu-table .demo-table-error-row td{
-    background-color: #ff6600;
-    color: #fff;
-  }
-  .ivu-table td.demo-table-info-column{
-    background-color: #2db7f5;
-    color: #fff;
+  .MyPage{
+    margin-top: 20px;
   }
 </style>

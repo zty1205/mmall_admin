@@ -19,7 +19,7 @@
                 </router-link>
               </MenuItem>
               <MenuItem name="2-2">
-                <router-link to="/home/category"> 品类管理
+                <router-link to="/home/category">
                   <span>品类管理 </span>
                 </router-link>
               </MenuItem>

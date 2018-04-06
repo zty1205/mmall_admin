@@ -12,8 +12,8 @@
 
 
       <!-- 商品列表 -->
-      <i-table height="350" :content="self" border :columns="columns_product" :data="list" ref="productTable"></i-table>
-      <Page :total="total" :current='PageNum' :page-size='PageSize' @on-change="changePage" size="small" show-elevator class="MyPage"></Page>
+      <i-table height="350" :loading="loading" :content="self" border :columns="columns_product" :data="list" ref="productTable"></i-table>
+      <Page :total="total" :current='PageNum' :page-size='PageSize' @on-change="changePage" show-elevator class="MyPage"></Page>
       <footer :style="{marginTop: '20px'}">
         <i-button type="primary" size="large" @click="exportData(1)">
           <Icon type="ios-download-outline"></Icon> 导出原始数据
@@ -34,6 +34,7 @@
       data(){
         return{
           self: this,
+          loading: true,
           list: [],
           nowId: 0,
           PageNum: 1,
@@ -166,9 +167,12 @@
         },
         changePage(index){
           // console.log(index) // iview 会将当前页码传递给你
+          this.loading = true
+
           getProductList(index, this.PageSize).then((res)=>{
             this.list = res.data.list
             this.total = res.data.total
+            this.loading = false
           })
         },
         getSearch(){
@@ -177,7 +181,6 @@
           let regPos = /^\+?[1-9][0-9]*$/g; // 正整数正则
           if(searchChoice){
             if(searchChoice === 'ById' && regPos.test(Search)){
-              console.log('id')
               searchProductById(Search).then((res)=>{
                 this.list = res.data.list
                 this.total = res.data.total
@@ -208,14 +211,14 @@
         },
 
       },
-      created(){
+      mounted(){
         // const res = getProductList(this.PageNum, this.PageSize)
         getProductList(this.PageNum, this.PageSize).then((res)=>{
           // console.log(data) // res是返回的response  第二个是返回json格式里的data
           let data = res.data
-          console.log(data)
           this.list = data.list
           this.total = data.total
+          this.loading = false
         })
         //console.log(res) // res 直接返回的是Promise  可到api那里进行promise封装
         //this.list = res.list

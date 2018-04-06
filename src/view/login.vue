@@ -4,13 +4,13 @@
          <Col span="8" offset="8" class="loginCol">
             <Form ref="formInfo" :model="formInfo" :rules="ruleInline">
                 <FormItem prop="username">
-                    <Input type="text" v-model="formInfo.username" placeholder="Username">
-                        <Icon type="android-person" slot="prepend"></Icon>
+                    <Input type="text" v-model="formInfo.username" placeholder="Username" size="large">
+                        <Icon type="android-person" slot="prepend" size="20"></Icon>
                     </Input>
                 </FormItem>
                 <FormItem prop="password">
-                    <Input type="password" v-model="formInfo.password" placeholder="Password">
-                        <Icon type="android-lock" slot="prepend"></Icon>
+                    <Input type="password" v-model="formInfo.password" placeholder="Password" size="large">
+                        <Icon type="android-lock" slot="prepend" size="20"></Icon>
                     </Input>
                 </FormItem>
                 <FormItem>
@@ -243,11 +243,12 @@ export default {
 }
 .loginCol{
     width: 100%;
-    height: 600px;
+    height: 700px;
     display:flex;/*Flex布局*/
     display: -webkit-flex; /* Safari */
     align-items:center;/*指定垂直居中*/
     justify-content:center;
     z-index: 3;
 }
+
 </style>
