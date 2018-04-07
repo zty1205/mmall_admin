@@ -40,16 +40,11 @@
         </Sider>
         <Layout>
           <Header class="layout-header-bar">
-            <DatePicker
-              :open="open"
-              type="date"
-              :value="value"
-            >
+            <a style="float: right">退出</a>
+            <span style="float: right">欢迎, uesr </span>
+            <DatePicker :open="open" type="date" :value="value" style="float: right">
               <Icon :style="{cursor: 'pointer'}" class="calendarIcon" type="calendar" size=30 @click.native="handleClick"></Icon>
-
             </DatePicker>
-            <a>退出</a>
-            <span>欢迎, uesr </span>
           </Header>
           <Content :style="{margin: '20px',background: '#fff', minHeight: '220px'}">
             <router-view :style="{margin: '20px'}"></router-view>

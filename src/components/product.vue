@@ -52,7 +52,7 @@
             {
               title: 'ID',
               key: 'id',
-              width: 60
+              width: 100
             },
             {
               title: '信息',
@@ -62,7 +62,7 @@
             {
               title: '价格',
               key: 'price',
-              width: 100,
+              width: 140,
               "sortable": true,
               filters: [
                 {
@@ -98,7 +98,7 @@
             {
               title: '状态',
               key: 'status',
-              width: 150,
+              width: 180,
               render: (h, params) => {
                 let _index = params.index
                 let status = this.list[_index].status
@@ -151,11 +151,12 @@
             {
               title: '操作',
               key: 'action',
+              width: 200,
               render: (h, params) => {
                 return h('div', [
                   h('Button', {
                     props: {
-                      type: 'info',
+                      type: 'primary',
                       size: 'small'
                     },
                     style: {
@@ -166,18 +167,7 @@
                         this.detail(params.index)
                       }
                     }
-                  }, '查看'),
-                  h('Button', {
-                    props: {
-                      type: 'primary',
-                      size: 'small'
-                    },
-                    on: {
-                      click: () => {
-                        this.edit(params.index)
-                      }
-                    }
-                  }, '编辑')
+                  }, '查看及编辑')
                 ]);
               }
             }
@@ -307,7 +297,8 @@
 }
   .search_input{
     width: 600px;
-    margin: 20px auto;
+    margin-left: 20px;
+    margin-bottom: 20px;
   }
   .search_select{
     width: 200px;

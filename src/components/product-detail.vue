@@ -6,21 +6,22 @@
       <div class="back"></div>
 
       <!-- 展示 商品名称 形容 价格 库存stock 图片-->
+      <!-- 编辑 商品名称 形容 价格 库存stock 图片 更新时间-->
       <div class="desc">
         <label>商品名称</label>
-        <Input v-model="detailList.name" :disabled="isEdit" class="descContent"></Input>
+        <Input v-model="detailList.name" :disabled="isEdit" size="large" class="descContent"></Input>
       </div>
       <div class="desc">
         <label>商品描述</label>
-        <Input v-model="detailList.subtitle" :disabled="isEdit" class="descContent"></Input>
+        <Input v-model="detailList.subtitle" :disabled="isEdit" size="large" class="descContent"></Input>
       </div>
       <div class="desc">
         <label>当前状态</label>
-        <Input v-model="detailList.status" disabled class="descContent"></Input>
+        <Input v-model="detailList.status" disabled size="large" class="descContent"></Input>
       </div>
       <div class="desc">
         <label>商品价格</label>
-        <InputNumber v-model="detailList.price" :disabled="isEdit" :min="0"
+        <InputNumber v-model="detailList.price" :disabled="isEdit" size="large" :min="0"
                      :formatter="value => `$ ${value}`.replace(/B(?=(d{3})+(?!d))/g, ',')"
                      :parser="value => value.replace(/$s?|(,*)/g, '')"
                      class="descContent"></InputNumber>
@@ -28,14 +29,17 @@
       <div class="desc">
         <label>商品库存</label>
         <InputNumber v-model="detailList.stock" :disabled="isEdit" :min="0"
-                     :step="10"
+                     :step="10"  size="large"
                      class="descContent"></InputNumber>
       </div>
-      <!-- 编辑 商品名称 形容 价格 库存stock 图片 更新时间-->
-      <label class="product_img">商品图片</label>
-      <div class="desc_img">
-        <img :src="[detailList.imageHost + detailList.mainImage]" class="imgOne"></img> <!-- 这样是可以的 但是subImages[i]不知道怎么写才正确 -->
-        <!--<img :src="[detailList.imageHost + {{detailList.subImages[1]}}]" class="imgOne"></img> 不成功 只能单独渲染 v-for-->
+
+      <label class="product_img_title">商品图片</label>
+      <div class="product_img">
+        <div class="desc_img" v-for="item in subImages">
+          <!--<img :src="[detailList.imageHost + detailList.mainImage]" class="imgOne"></img> &lt;!&ndash; 这样是可以的 但是subImages[i]不知道怎么写才正确 &ndash;&gt;-->
+          <!--<img :src="[detailList.imageHost + {{detailList.subImages[1]}}]" class="imgOne"></img> 不成功 只能单独渲染 v-for-->
+          <img :src="item.src" class="imgOne"></img>
+        </div>
       </div>
       <!-- 决定是否信息可以编辑 -->
       <i-switch size="large" v-model="isEdit" class="EditSwitch">
@@ -63,7 +67,11 @@
           detailList: {},
           // name: '',
           // subtitle: ''
-          subImages: [],
+          subImages: [
+            { src : '' },
+            { src : '' },
+            { src : '' }
+          ],
           isShow: false
         }
       },
@@ -71,6 +79,11 @@
         detailList: {
           handler(newVal,oldVal){
             this.detailList = newVal;
+          }
+        },
+        subImages:{
+          handler(newVal,oldVal){
+            this.subImages = newVal;
           }
         }
       },
@@ -87,17 +100,18 @@
             let list = data
             let imageHost = data.imageHost
             let subImage = data.subImages.split(',')   // 这是一段字符串 而不是数组
+            let _subImages = this.subImages
             // console.log(imageHost)
-            for(let i = 0; i<2; i++){
-              this.subImages[i] = imageHost + subImage[i]+''
-              console.log(data.subImages[i])
+            for(let i = 0; i<3; i++){
+              _subImages[i].src = imageHost + subImage[i]+''
+              // console.log(this.subImages[i].src)
             }
             this.detailList = list
           })
           this.isShow = true
         },
         SureEdit(){
-          console.log('in sure')
+          // console.log('in sure')
           // this.isShow = false
           this.detailList = {}
           this.$emit('unShow')
@@ -113,9 +127,10 @@
 
 <style scoped>
 .layout{
-  background: #fff;
+  /*background: #fff;*/
+  /*background-color: #2d8cf0;*/
+  background-color: rgb(228,218,172);
   position: fixed;
-  border: 1px solid blue;
   top: 0;
   left: 0;
   right: 0;
@@ -139,16 +154,16 @@
   height: 40px;
   margin: 20px auto;
 }
-  .desc label{
-    width: 20%;
-    height: 30px;
-    line-height: 30px;
-    font-size: 16px;
-    margin-left: 10px;
-    margin-top: 0;
-    display: block;
-    float: left;
-  }
+.desc label{
+  width: 20%;
+  height: 30px;
+  line-height: 30px;
+  font-size: 16px;
+  margin-left: 10px;
+  margin-top: 0;
+  display: block;
+  float: left;
+}
 
 .desc .descContent{
   width: 70%;
@@ -156,41 +171,41 @@
   margin-top: 0;
   float: left;;
 }
-  .EditSwitch{
-    position: absolute;
-    bottom: 20px;
-    left: 30px;
-  }
-  .EditBtnSure{
-    position: absolute;
-    bottom: 20px;
-    right: 100px;
-  }
+.EditSwitch{
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+}
+.EditBtnSure{
+  position: absolute;
+  bottom: 20px;
+  right: 100px;
+}
 .EditBtnFalse{
   position: absolute;
   bottom: 20px;
   right: 30px;
 }
-.product_img{
+.product_img_title{
   font-size: 20px;
   margin: 4px auto;
-  color: #0022ff;
 }
-  .desc_img{
-    width: 80%;
-    height: 400px;
-    margin: 20px auto;
-  }
-  .imgOne{
-    margin-left: 20px;
-    width: 200px;
-    height: 300px;
-    float: left;
-  }
-imgOne{
-  margin-left: 20px;
-  width: 200px;
-  height: 300px;
+.product_img{
+  margin: 0 auto;
+  padding: 10px auto;
+}
+.desc_img{
+  width: 20%;
+  height: 280px;
+  margin-left: 10%;
+  margin-top: 40px;
   float: left;
+  border: 4px solid white;
+
+}
+.imgOne{
+  margin: 5% 5%;
+  width: 90%;
+  height: 90%;
 }
 </style>
