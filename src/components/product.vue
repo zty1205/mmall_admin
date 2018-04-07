@@ -3,16 +3,16 @@
       <h1>这里是product界面</h1>
       <!-- 商品查询 -->
 
-      <Input v-model="Search" placeholder="关键词..." style="width: 500px;margin-bottom: 10px;">
-        <Select v-model="searchChoice" slot="prepend" style="width: 150px">
+      <Input v-model="Search" placeholder="关键词..." class="search_input" size="large">
+        <Select v-model="searchChoice" slot="prepend" class="search_select">
           <Option v-for="item in Choice" :value="item.value" :key="item.value">{{ item.label }}</Option>
         </Select>
-        <Button type="primary" slot="append" icon="ios-search" @click="getSearch"></Button>
+        <Button type="primary" slot="append" icon="ios-search" @click="getSearch" size="large"></Button>
       </Input>
 
 
       <!-- 商品列表 -->
-      <i-table height="350" :loading="loading" :content="self" border :columns="columns_product" :data="list" ref="productTable"></i-table>
+      <i-table height="400" :loading="loading" :content="self" border :columns="columns_product" :data="list" ref="productTable"></i-table>
       <Page :total="total" :current='PageNum' :page-size='PageSize' @on-change="changePage" show-elevator class="MyPage"></Page>
       <footer :style="{marginTop: '20px'}">
         <i-button type="primary" size="large" @click="exportData(1)">
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-  import { getProductList, searchProductById, searchProductByName } from '../api/product'
+  import { getProductList, searchProductById, searchProductByName, setStatus } from '../api/product'
   import product_detail from './product-detail.vue'
     export default {
       data(){
@@ -40,6 +40,7 @@
           PageNum: 1,
           PageSize: 10,
           total: 0,
+          temp_status: 1, // 调整上架下架的中间变量 实现局部更新商品的状态
           searchChoice: null,
           Search: '',
           Choice:[
@@ -97,7 +98,55 @@
             {
               title: '状态',
               key: 'status',
-              width: 120
+              width: 150,
+              render: (h, params) => {
+                let _index = params.index
+                let status = this.list[_index].status
+                // console.log(status)
+                if(status === 1) {
+                  // console.log('status=1')
+                  return h('div', [
+                  h('label',{
+                    style:{
+                      marginLeft: '5px',
+                      marginRight: '5px'
+                    }
+                  },'在售'),
+                  h('Button',{
+                    props: {
+                      type: 'error',
+                      size: 'small'
+                    },
+                    style: {
+                      marginLeft: '5px'
+                    },
+                    on:{
+                      click: ()=>{
+                        this.setStatus(params.index,0)
+                      }
+                    }
+                  },'下架')
+                ]) }
+                else {
+                  return h('div', [
+                    h('label','已下架'),
+                    h('Button',{
+                      props: {
+                        type: 'success',
+                        size: 'small'
+                      },
+                      style: {
+                        marginLeft: '5px'
+                      },
+                      on:{
+                        click: ()=>{
+                          this.setStatus(params.index,1)
+                        }
+                      }
+                    },'上架')
+                  ])
+                }
+              }
             },
             {
               title: '操作',
@@ -149,6 +198,11 @@
         nowId:{
           handler(newVal, oldVal){
             this.nowId = newVal
+          }
+        },
+        temp_status:{
+          handler(newVal, oldVal){
+            this.temp_status = newVal
           }
         }
       },
@@ -209,7 +263,28 @@
           this.showDetail = true
           console.log(this.showDetail)
         },
-
+        setStatus(index,status){
+          // console.log('in set'+status)
+          let productNode = this.list[index]
+          let id = productNode.id
+          let _status = status
+          this.temp_status = _status
+          setStatus(id, _status).then((res)=>{
+            console.log(res)
+            let message = res.msg
+            if(res.status === 0){
+              productNode.status = this.temp_status
+              this.$Notice.success({
+                title: '设置商品状态',
+                desc: message
+              })
+            }else{
+              this.$Notice.success({
+                desc: '调整商品状态失败，请重试'
+              })
+            }
+          })
+        }
       },
       mounted(){
         // const res = getProductList(this.PageNum, this.PageSize)
@@ -230,4 +305,11 @@
 .MyPage{
   margin-top: 20px;
 }
+  .search_input{
+    width: 600px;
+    margin: 20px auto;
+  }
+  .search_select{
+    width: 200px;
+  }
 </style>

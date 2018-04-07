@@ -4,6 +4,7 @@ axios.defaults.withCredentials = true
 const listUrl = 'http://localhost:8080/manage/product/list.do?'
 const searchUrl = 'http://localhost:8080/manage/product/search.do?'
 const detailUrl = 'http://localhost:8080/manage/product/detail.do?'
+const statusUrl = 'http://localhost:8080/manage/product/set_sale_status.do?'
 // const baseUrl = 'http://www.djcao.top/manage/user/login.do?'
 
 export const getProductList = (PageNum, PageSize) => {
@@ -75,3 +76,20 @@ export const getDetail = (productId) => {
   })
 }
 
+export const setStatus = (productId,status) => {
+  let url = statusUrl+'productId='+productId+'&status='+status
+  return new Promise((resolve, reject)=>{
+    axios.post(url).then((res)=>{
+      let data = res.data
+      if(data.status === 0){
+        resolve(data)
+      }else{
+        // alert('权限不够')
+        resolve(data) // 接受后应跳转路由到登录界面
+      }
+    }).catch((err)=>{
+      alert('访问出错')
+      reject(err)
+    })
+  })
+}

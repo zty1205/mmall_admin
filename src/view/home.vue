@@ -1,6 +1,6 @@
 <template>
     <div class="layout">
-      <Layout :style="{height: '700px'}">
+      <Layout :style="{height: '780px'}">
         <Sider breakpoint="md" collapsible :collapsed-width="78" v-model="isCollapsed">
           <span class="logo"> MMall </span>
           <Menu active-name="1" theme="dark" width="auto" :class="menuitemClasses">

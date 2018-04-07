@@ -71,8 +71,7 @@
         detailList: {
           handler(newVal,oldVal){
             this.detailList = newVal;
-          },
-          deep: true
+          }
         }
       },
       mounted(){
@@ -87,10 +86,10 @@
             let data = res.data
             let list = data
             let imageHost = data.imageHost
-            let subImage = data.subImages   // 这是一段字符串 而不是数组
-            console.log(imageHost)
+            let subImage = data.subImages.split(',')   // 这是一段字符串 而不是数组
+            // console.log(imageHost)
             for(let i = 0; i<2; i++){
-            //   this.subImages[i] = imageHost + subImage[i]+''
+              this.subImages[i] = imageHost + subImage[i]+''
               console.log(data.subImages[i])
             }
             this.detailList = list
