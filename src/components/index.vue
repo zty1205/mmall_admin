@@ -5,7 +5,6 @@
       <h4>本年度情况一览</h4>
       <hr class="sp_hr"/>
       <div id="chart_score" class="score"></div>
-      <div id="chart_pay" class="pay"></div>
     </div>
 </template>
 
@@ -149,47 +148,19 @@
 
 <style scoped>
  .score{
-   height: 300px;
-   width: 40%;
-   margin-left: 5%;
-   margin-top: 40px;
-   float: left;
+   height: 500px;
+   width: 80%;
+   margin-left: 10%;
+   margin-top: 60px;
    transition: all 1s ease;
  }
  .score:hover{
    border: 2px solid #2d8cf0;
-   /*
-   matrix（a,b,c,d,e,f）
-   a: x轴的比例
-   d: y轴的比例
-   e: x轴的位移
-   f: y轴的位移
-    */
-   transform: matrix(1.2,0,0,1.2,300,50);
+   transform: scale(1.1);
  }
   .sp_hr{
     width: 90%;
     margin: 4px auto;
     height: 2px;
   }
-  .pay{
-    height: 300px;
-    width: 40%;
-    margin-right: 5%;
-    margin-top: 40px;
-    float: right;
-    border: 1px solid red;
-    transition: all 1s ease;
-  }
- .pay:hover{
-   border: 2px solid #2d8cf0;
-   /*
-   matrix（a,b,c,d,e,f）
-   a: x轴的比例
-   d: y轴的比例
-   e: x轴的位移
-   f: y轴的位移
-    */
-   transform: matrix(1.2,0,0,1.2,-300,50);
- }
 </style>

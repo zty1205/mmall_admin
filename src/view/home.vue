@@ -4,9 +4,11 @@
         <Sider breakpoint="md" collapsible :collapsed-width="78" v-model="isCollapsed">
           <span class="logo"> MMall </span>
           <Menu active-name="1" theme="dark" width="auto" :class="menuitemClasses">
-            <MenuItem name="1">
-              <Icon type="ios-home" size='24' :style="{marginLeft: '-20px'}"></Icon>
-              <router-link to="/home/index"> 首页 </router-link>
+            <MenuItem name="1" style="margin-left: -14px;">
+              <Icon type="ios-home" size='24'></Icon>
+              <router-link to="/home/index">
+                <span>首页</span>
+              </router-link>
             </MenuItem>
             <Submenu name="2">
               <template slot="title">
@@ -40,9 +42,9 @@
         </Sider>
         <Layout>
           <Header class="layout-header-bar">
-            <a style="float: right">退出</a>
-            <span style="float: right">欢迎, uesr </span>
-            <DatePicker :open="open" type="date" :value="value" style="float: right">
+            <a class="loginOut" @click="LoginOut">退出</a>
+            <span class="welcome">欢迎  {{ nowUser }} </span>
+            <DatePicker :open="open" type="date" :value="value" class="head_calendar">
               <Icon :style="{cursor: 'pointer'}" class="calendarIcon" type="calendar" size=30 @click.native="handleClick"></Icon>
             </DatePicker>
           </Header>
@@ -71,11 +73,19 @@
                     'menu-item',
                     this.isCollapsed ? 'collapsed-menu' : ''
                 ]
-            }
+            },
+          nowUser() {
+              let user = this.$store.state.user
+              return user.username!=''?user.username:'admin'
+              // return this.$store.state.user.username
+          }
         },
         methods: {
             handleClick () {
                 this.open = !this.open;
+            },
+            LoginOut() {
+              this.$router.push({path: '/login'})
             }
         }
     }
@@ -117,7 +127,11 @@
     vertical-align: middle;
     font-size: 22px;
   }
-
+.ivu-menu-dark.ivu-menu-vertical
+.ivu-menu-submenu .ivu-menu-item-active,
+.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active:hover{
+  background: rgba(255,255,255,.8) !important;
+}
   .logo {
       font-weight: 600;
       font-size: 28px;
@@ -151,8 +165,24 @@
                   0 0 75px #FFDD1B;
       }
   }
+  .head_calendar{
+    float: right;
+    margin: 16px 6px;
+  }
  .calendarIcon{
     margin-right: 10px;
  }
+  .loginOut{
+    float: right;
+    font-size: 14px;
+    margin: 3px 8px;
+  }
+  .welcome{
+    font-size: 16px;
+    float: right;
+    font-weight: bold;
+    color: burlywood;
+    margin: 2px 8px;
+  }
 </style>
 

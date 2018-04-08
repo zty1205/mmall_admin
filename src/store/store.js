@@ -10,6 +10,7 @@ const store = new Vuex.Store({
     state: {
         status: '',
         msg: '223322',
+       // 刷新后 state的数据会丢失掉 所以token要保存在localStorage较好
         // token: localStorage.getItem('mmall-token'), 或 Cookie.getItem('mmall-token')
         user: { // 对应请求返回的data
             id: '',
@@ -22,8 +23,7 @@ const store = new Vuex.Store({
             role: '',
             create_time: '',
             update_time: ''
-        },
-      list: []
+        }
     },
     actions,
     mutations,

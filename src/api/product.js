@@ -5,6 +5,8 @@ const listUrl = 'http://localhost:8080/manage/product/list.do?'
 const searchUrl = 'http://localhost:8080/manage/product/search.do?'
 const detailUrl = 'http://localhost:8080/manage/product/detail.do?'
 const statusUrl = 'http://localhost:8080/manage/product/set_sale_status.do?'
+// 接受的参数为 一个商品对象 如果对象不包含id属性 则为添加商品 如果有id属性 则为修改商品属性
+const addAndeditUrl = 'http://localhost:8080/manage/product/save.do?'
 // const baseUrl = 'http://www.djcao.top/manage/user/login.do?'
 
 export const getProductList = (PageNum, PageSize) => {
@@ -86,6 +88,24 @@ export const setStatus = (productId,status) => {
       }else{
         // alert('权限不够')
         resolve(data) // 接受后应跳转路由到登录界面
+      }
+    }).catch((err)=>{
+      alert('访问出错')
+      reject(err)
+    })
+  })
+}
+
+export const addAndedit = (product)=>{
+  let url = addAndeditUrl+'product='+product
+  return new Promise((resolve, reject)=>{
+    axios.post(url).then((res)=>{
+      let data = res.data
+      if(data.status === 0){
+        resolve(data)
+      }else{
+        // alert('权限不够')
+        resolve(data)
       }
     }).catch((err)=>{
       alert('访问出错')

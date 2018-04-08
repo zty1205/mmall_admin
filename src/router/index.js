@@ -27,6 +27,10 @@ export const router = new Router({
       },
       {
         path: '/home',
+        redirect: '/home/index'
+      },
+      {
+        path: '/home',
         name: 'home',
         component: home,
         children: [  //这里就是二级路由的配置

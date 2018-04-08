@@ -2,9 +2,13 @@
     <div>
       <h1>这里是category界面</h1>
 
-      <p v-model="nowParentId" style="margin: 10px auto;">当前的品类ID： {{ nowParentId }}</p>
+      <div class="category_header">
+        <p v-model="nowParentId" class="parentId">当前的品类ID： {{ nowParentId }}</p>
+        <Button type="success" icon="plus-round" size="large" class="add_btn" @click="addCategory">添加品类</Button>
+      </div>
+
       <!-- 种类列表 -->
-      <i-table height="350" :loading="loading" :content="self" border :columns="columns_category" :data="list" ref="categoryTable"></i-table>
+      <i-table height="400" :loading="loading" :content="self" border :columns="columns_category" :data="list" ref="categoryTable"></i-table>
       <Page :total="total" :current='PageNum' :page-size='PageSize' @on-change="changePage" show-elevator class="MyPage"></Page>
       <footer :style="{marginTop: '20px'}">
         <i-button type="primary" size="large" @click="exportData(1)">
@@ -151,6 +155,9 @@
             this.list = data
             this.loading = false
           })
+        },
+        addCategory(){
+          alert('add')
         }
       },
       mounted(){
@@ -169,5 +176,21 @@
 </script>
 
 <style scoped>
-
+  .MyPage{
+    margin-top: 20px;
+  }
+.category_header{
+  height: 50px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+  .parentId{
+    float: left;
+    margin: 5px 20px;
+    font-size: 20px;
+  }
+.add_btn{
+  float: right;
+  margin: 4px 20px;
+}
 </style>

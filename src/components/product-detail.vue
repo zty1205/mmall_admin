@@ -57,7 +57,7 @@
 </template>
 
 <script>
-  import { getDetail } from '../api/product'
+  import { getDetail, addAndedit } from '../api/product'
     export default {
       name: 'product-detail',
       props:['id'], // 获得从父组件传过来的信息 让后渲染在页面上
@@ -113,7 +113,10 @@
         SureEdit(){
           // console.log('in sure')
           // this.isShow = false
-          this.detailList = {}
+          let product = {}
+          addAndedit(product).then((res)=>{
+
+          })
           this.$emit('unShow')
         },
         Cancel(){

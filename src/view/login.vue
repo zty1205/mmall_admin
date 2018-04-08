@@ -34,7 +34,7 @@ export default {
                 password: ''
             },
             ruleInline: {
-                user: [
+              username: [
                     { required: true, message: 'Please fill in the user name', trigger: 'blur' }
                 ],
                 password: [
@@ -46,7 +46,6 @@ export default {
     },
     methods: {
       handleSubmit() {
-
         const formInfo = {
           username: this.formInfo.username,
           password: this.formInfo.password

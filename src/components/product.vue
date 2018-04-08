@@ -1,15 +1,21 @@
 <template>
     <div>
       <h1>这里是product界面</h1>
-      <!-- 商品查询 -->
 
-      <Input v-model="Search" placeholder="关键词..." class="search_input" size="large">
-        <Select v-model="searchChoice" slot="prepend" class="search_select">
-          <Option v-for="item in Choice" :value="item.value" :key="item.value">{{ item.label }}</Option>
-        </Select>
-        <Button type="primary" slot="append" icon="ios-search" @click="getSearch" size="large"></Button>
-      </Input>
+      <div class="product_btns">
+        <!-- 商品查询 -->
+        <div class="product_search">
+          <Input v-model="Search" placeholder="关键词..." class="search_input" size="large">
+          <Select v-model="searchChoice" slot="prepend" class="search_select">
+            <Option v-for="item in Choice" :value="item.value" :key="item.value">{{ item.label }}</Option>
+          </Select>
+          <Button type="primary" slot="append" icon="ios-search" @click="getSearch" size="large"></Button>
+          </Input>
+        </div>
 
+        <!-- 添加商品 -->
+        <Button type="success" icon="plus-round" size="large" class="add_btn" @click="addProduct">添加商品</Button>
+      </div>
 
       <!-- 商品列表 -->
       <i-table height="400" :loading="loading" :content="self" border :columns="columns_product" :data="list" ref="productTable"></i-table>
@@ -274,6 +280,9 @@
               })
             }
           })
+        },
+        addProduct(){
+          alert('add')
         }
       },
       mounted(){
@@ -295,6 +304,10 @@
 .MyPage{
   margin-top: 20px;
 }
+.product_search{
+  float: left;
+  margin: 10px 20px;
+}
   .search_input{
     width: 600px;
     margin-left: 20px;
@@ -302,5 +315,12 @@
   }
   .search_select{
     width: 200px;
+  }
+  .product_btns{
+    height: 80px;
+  }
+  .add_btn{
+    float: right;
+    margin: 10px 20px;
   }
 </style>

@@ -2,7 +2,7 @@
     <div>
       <h1>这里是order界面</h1>
       <!-- 订单列表 -->
-      <i-table height="350" :loading="loading" :content="self" border :columns="columns_order" :data="list" ref="orderTable"></i-table>
+      <i-table height="400" :loading="loading" :content="self" border :columns="columns_order" :data="list" ref="orderTable"></i-table>
       <Page :total="total" :current='PageNum' :page-size='PageSize' @on-change="changePage" show-elevator class="MyPage"></Page>
 
       <footer :style="{marginTop: '20px'}">
