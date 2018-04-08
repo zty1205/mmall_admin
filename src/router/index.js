@@ -7,6 +7,7 @@ const index = resolve => require(['../components/index.vue'], resolve)
 const product = resolve => require(['../components/product.vue'], resolve)
 const category = resolve => require(['../components/category.vue'], resolve)
 const order = resolve => require(['../components/order.vue'], resolve)
+const product_save = resolve => require(['../components/product-save.vue'],resolve)
 
 Vue.use(Router)
 
@@ -43,13 +44,21 @@ export const router = new Router({
               component: index
             },
             {
-              path: 'product',
-              name: 'product',
-              meta:{
-                title: '商品'
-              },
-              component: product
+            path: 'product',
+            name: 'product',
+            meta:{
+              title: '商品'
             },
+            component: product
+          },
+          {
+            path: 'product/save',
+            name: 'product_save',
+            meta:{
+              title: '添加商品'
+            },
+            component: product_save
+          },
             {
               path: 'category',
               name: 'category',

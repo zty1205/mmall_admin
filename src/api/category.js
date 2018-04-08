@@ -28,9 +28,11 @@ export const getCategoryChild = (categoryId) => {
       let data = res.data
       if(data.status === 0){
         resolve(data)
+        // resolve(res)
       }else{
         resolve(data.status) // 接受到的status = 10
-        alert('权限不够')
+        // this.$router.push({path: '/login'})
+        // alert('权限不够')
       }
     }).catch((err)=>{
       reject(err)

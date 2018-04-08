@@ -237,7 +237,7 @@
               })
             }
             else if(searchChoice === 'ByName'){
-              console.log('name')
+              // console.log('name')
               searchProductByName(Search).then((res)=>{
                 this.list = res.data.list
                 this.total = res.data.total
@@ -283,6 +283,7 @@
         },
         addProduct(){
           alert('add')
+          this.$router.push({path: '/home/product/save'})
         }
       },
       mounted(){
