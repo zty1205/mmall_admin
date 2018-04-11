@@ -221,8 +221,8 @@ export default {
 
 
       //----------------------跟着鼠标动--------------------
-      createDots();
-      requestAnimationFrame(animateDots);
+      // createDots();
+      // requestAnimationFrame(animateDots);
 	},
 }
 </script>
