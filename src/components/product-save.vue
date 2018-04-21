@@ -5,10 +5,10 @@
       <div class="product_form">
         <Form ref="newProduct" :model="newProduct" label-position="left" :label-width=100>
           <FormItem label="商品名称" props="name">
-            <Input v-model="newProduct.name" size="large"></Input>
+            <Input v-model="newProduct.name" size="large" />
           </FormItem>
           <FormItem label="商品描述" props="subtitle">
-            <Input v-model="newProduct.subtitle" size="large"></Input>
+            <Input v-model="newProduct.subtitle" size="large" />
           </FormItem>
           <FormItem>
             <Row type="flex" justify="space-around">
@@ -40,7 +40,7 @@
               </Col>
               <Col span="12">
                 <FormItem label="商品库存" props="stock">
-                  <Input v-model="newProduct.stock" :number="true" size="large" class="product_double_property">
+                  <Input v-model="newProduct.stock" size="large" class="product_double_property">
                   <span slot="append">件</span>
                   </Input>
                 </FormItem>
@@ -88,12 +88,12 @@
           </FormItem> -->
 
           <FormItem label="商品描述" props="desc">
-            <Input v-model="newProduct.desc" type="textarea" :autosize="true" placeholder="Enter something..."></Input>
+            <Input v-model="newProduct.desc" :rows="3" type="textarea" :autosize="true" placeholder="Enter something..." />
           </FormItem>
 
           <FormItem>
-            <Button type="primary" @click="handleConfirm">确认</Button>
-            <Button type="ghost" @click="handleCancel('formInfo')" style="margin-left: 8px">取消</Button>
+            <Button type="primary" @click="handleConfirm('newProduct')">确认</Button>
+            <Button type="ghost" @click="handleCancel('newProduct')" style="margin-left: 8px">取消</Button>
           </FormItem>
         </Form>
       </div>
@@ -104,6 +104,7 @@
 <script>
   import { saveProduct } from "../api/product";
   import { getCategoryChild } from '../api/category'
+
     export default {
       data(){
         return{
@@ -117,7 +118,7 @@
             desc: ''
           },
           parentIdList:[],
-          childIdList: [],
+          childIdList: []
           // defaultList: [
           //   {
           //     'name': 'a42bdcc1178e62b4694c830f028db5c0',
@@ -131,6 +132,8 @@
           // imgName: '',
           // visible: false,
           // uploadList: []
+
+          
         }
       },
       watch:{
@@ -185,13 +188,13 @@
             }
           })
         },
-        handleConfirm(){
-          alert('in confirm')
+        handleConfirm(name){
+        
           let product = this.newProduct
-          console.log(product)
-          // saveProduct(product).then(()=>{
-          //
-          // })
+          // console.log(product)
+          saveProduct(product).then((res)=>{
+            console.log(res)
+          })
         },
         handleCancel(name){
           alert('in cancel')

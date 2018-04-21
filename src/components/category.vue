@@ -35,6 +35,7 @@
           PageNum: 1,
           PageSize: 10,
           total: 10,
+          newCategory: '12', // 新的种类名
           columns_category:[
             {
               title: '品类ID',
@@ -130,8 +131,34 @@
             this.loading = false
           })
         },
-        edit(){
+        edit(index){ // 修改种类名
           console.log('in edit')
+          let currentCategory = this.list[index].name
+          this.newCategory = currentCategory
+          // console.log(currentCategory)
+          let _this = this
+          this.$Modal.confirm({
+            render: (h) => {
+              return h('Input', {
+                props: {
+                  value: currentCategory,
+                  autofocus: true,
+                  placeholder: '请输入新的种类名'
+                },
+                on: {
+                  input: (val) => {
+                    console.log(this.newCategory)
+                    this.newCategory = val;
+                  }
+                },
+              })
+            },
+            onOk:() => {
+                    // console.log('in onOk')
+                    console.log(this.newCategory)
+                    // 如何新的种类名和原本的种类名不一致 则发送axios请求
+                },
+          })
         },
         getChild(index){
           this.loading = true

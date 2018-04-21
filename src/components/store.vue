@@ -1,8 +1,5 @@
 <template>
-    <div>
-        <h1>WeCome to MMall Admin</h1>
-
-    </div>
+  <div>store</div>
 </template>
 
 <script>
@@ -10,7 +7,6 @@ export default {
   
 }
 </script>
-
 
 <style scoped>
 

@@ -8,6 +8,9 @@ const product = resolve => require(['../components/product.vue'], resolve)
 const category = resolve => require(['../components/category.vue'], resolve)
 const order = resolve => require(['../components/order.vue'], resolve)
 const product_save = resolve => require(['../components/product-save.vue'],resolve)
+const store = resolve => require(['../components/store.vue'], resolve)
+const performance = resolve => require(['../components/performance.vue'],resolve)
+const mine = resolve => require(['../components/mine.vue'],resolve)
 
 Vue.use(Router)
 
@@ -35,15 +38,15 @@ export const router = new Router({
         name: 'home',
         component: home,
         children: [  //这里就是二级路由的配置
-            {
-              path: 'index',
-              name: 'index',
-              meta:{
-                title: '首页'
-              },
-              component: index
+          {
+            path: 'index',
+            name: 'index',
+            meta:{
+              title: '首页'
             },
-            {
+            component: index
+          },
+          {
             path: 'product',
             name: 'product',
             meta:{
@@ -59,24 +62,39 @@ export const router = new Router({
             },
             component: product_save
           },
-            {
-              path: 'category',
-              name: 'category',
-              meta:{
-                title: '种类'
-              },
-              component: category
+          {
+            path: 'category',
+            name: 'category',
+            meta:{
+              title: '种类'
             },
-            {
-              path: 'order',
-              name: 'order',
-              meta:{
-                title: '订单'
-              },
-              component: order
-            }
-          ]
-      },
+            component: category
+          },
+          {
+            path: 'order',
+            name: 'order',
+            meta:{
+              title: '订单'
+            },
+            component: order
+          },
+          {
+            path: 'performance',
+            name: 'performance',
+            component: performance,
+          },
+          {
+            path: 'store',
+            name: 'store',
+            component: store,
+          },
+          {
+            path: 'mine',
+            name: 'mine',
+            component: mine,
+          }
+        ]
+      }
     ]
   })
 

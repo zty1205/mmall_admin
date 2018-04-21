@@ -37,6 +37,28 @@
                 </router-link>
               </MenuItem>
             </Submenu>
+            <Submenu name="4">
+              <template slot="title">
+                <Icon type="stats-bars" size='24'></Icon>
+                  <span>统计 </span>
+              </template>
+              <MenuItem name="4-1">
+                <router-link to="/home/performance">
+                  <span>业绩 </span>
+                </router-link>
+              </MenuItem>
+              <MenuItem name="4-2">
+                <router-link to="/home/store">
+                  <span>仓库 </span>
+                </router-link>
+              </MenuItem>
+            </Submenu>
+            <MenuItem name="5" style="margin-left: -14px;">
+              <Icon type="ios-person" size='24'></Icon>
+              <router-link to="/home/mine">
+                <span>我的</span>
+              </router-link>
+            </MenuItem>
           </Menu>
           <div slot="trigger"></div>
         </Sider>
