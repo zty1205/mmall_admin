@@ -282,7 +282,7 @@
           })
         },
         addProduct(){
-          alert('add')
+          // alert('add')
           this.$router.push({path: '/home/product/save'})
         }
       },

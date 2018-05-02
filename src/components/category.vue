@@ -184,7 +184,8 @@
           })
         },
         addCategory(){
-          alert('add')
+          // alert('add')
+          this.$router.push({path: '/home/category/save'})
         }
       },
       mounted(){

@@ -1,7 +1,9 @@
 import axios from 'axios'
+import qs from 'querystring'
 
 const baseUrl = 'http://localhost:8080/manage/category/list.do?'
 const childUrl = 'http://localhost:8080/manage/category/get_category.do?'
+const addUrl = 'http://localhost:8080/manage/category/add_category.do'
 
 export const getCategoryList = (PageNum, PageSize) => {
   let url = baseUrl+'pageNum='+PageNum+'&pageSize='+PageSize
@@ -35,6 +37,22 @@ export const getCategoryChild = (categoryId) => {
         // alert('权限不够')
       }
     }).catch((err)=>{
+      reject(err)
+    })
+  })
+}
+
+export const addCategory = (category) => {
+  return new Promise((resolve, reject) =>{
+    axios.post(addUrl,qs.stringify(category)).then(res => {
+      let data = res.data;
+      if(data.status === 0){
+        resolve(data)
+      }else{
+        // alert('权限不够')
+        resolve(data)
+      }
+    }).catch(err => {
       reject(err)
     })
   })

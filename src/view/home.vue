@@ -65,7 +65,7 @@
         <Layout>
           <Header class="layout-header-bar">
             <a class="loginOut" @click="LoginOut">退出</a>
-            <span class="welcome">欢迎  {{ nowUser }} </span>
+          
             <DatePicker :open="open" type="date" :value="value" class="head_calendar">
               <Icon :style="{cursor: 'pointer'}" class="calendarIcon" type="calendar" size=30 @click.native="handleClick"></Icon>
             </DatePicker>
@@ -95,12 +95,7 @@
                     'menu-item',
                     this.isCollapsed ? 'collapsed-menu' : ''
                 ]
-            },
-          nowUser() {
-              let user = this.$store.state.user
-              return user.username!=''?user.username:'admin'
-              // return this.$store.state.user.username
-          }
+            }
         },
         methods: {
             handleClick () {

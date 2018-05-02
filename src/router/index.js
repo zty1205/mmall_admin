@@ -11,6 +11,7 @@ const product_save = resolve => require(['../components/product-save.vue'],resol
 const store = resolve => require(['../components/store.vue'], resolve)
 const performance = resolve => require(['../components/performance.vue'],resolve)
 const mine = resolve => require(['../components/mine.vue'],resolve)
+const category_save = resolve => require(['../components/category-save.vue'],resolve)
 
 Vue.use(Router)
 
@@ -69,6 +70,14 @@ export const router = new Router({
               title: '种类'
             },
             component: category
+          },
+          {
+            path: 'category/save',
+            name: 'category',
+            meta:{
+              title: '添加商品'
+            },
+            component: category_save
           },
           {
             path: 'order',

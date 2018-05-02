@@ -20,8 +20,8 @@
               </FormItem>
               </Col>
               <Col span="12">
-              <FormItem label="二级种类" props="Id">
-                <Select  v-model="newProduct.Id" :label-in-value="true" size="large" class="product_id">
+              <FormItem label="二级种类" props="categoryId">
+                <Select  v-model="newProduct.categoryId" :label-in-value="true" size="large" class="product_id">
                   <Option v-for="item in childIdList" :value="item.value"  :key="item.value">{{ item.label }}</Option>
                 </Select >
               </FormItem>
@@ -112,7 +112,7 @@
             name: '',
             subtitle: '',
             parentId: '',
-            Id: '',
+            categoryId: '',
             price: '',
             stock: '',
             desc: ''
@@ -133,7 +133,7 @@
           // visible: false,
           // uploadList: []
 
-          
+
         }
       },
       watch:{
@@ -189,11 +189,15 @@
           })
         },
         handleConfirm(name){
-        
+
           let product = this.newProduct
           // console.log(product)
           saveProduct(product).then((res)=>{
             console.log(res)
+            if(res.status == 0){
+              this.$Message.success('商品存储成功')
+              this.$refs['newProduct'].resetFields();
+            }
           })
         },
         handleCancel(name){
